@@ -1,0 +1,151 @@
+﻿@model Movies.Web.Models.Movies.MovieDetails
+
+@{
+    ViewData["Title"] = "MovieDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .text-heading {
+        color: #800080;
+    }
+</style>
+
+<script type="application/ld+json">
+    {
+    "@@context": "http://schema.org",
+    "@@type": "@Model.Type",
+    "name": "@Model.Title",
+    "image": "@Model.Poster",
+    "dateCreated": "@Model.Year",
+    "director": "@Model.Director"
+    }
+</script>
+
+<div class="jumbotron text-center mt-2">
+    <div class="row">
+        <div class="col-md-12 mb-5" style="color:#800080">
+            <h1>@Model.Title (@Model.Type)</h1>
+        </div>
+        <div class="col-md-6">
+            <img src="@Model.Poster" />
+        </div>
+        <div class="col-md-6">
+            <div style="text-align:left">
+                <h2>
+                    <span class="text-heading">
+                        Actors:
+                    </span>@Model.Actors
+                </h2>
+                <br />
+                <h2>
+                    <span class="text-heading">
+                        Country:
+                    </span>
+                    @Model.Country
+                </h2>
+                <br />
+                <h2>
+                    <span class="text-heading">
+                        Year:
+                    </span>
+                    @Model.Year
+                </h2>
+                <br />
+                <h2>
+                    <span class="text-heading">
+                        Director:
+                    </span>
+                    @Model.Director
+                </h2>
+                <br />
+                <h2>
+                    <span class="text-heading">
+                        Genre:
+                    </span>
+                    @Model.Genre
+                </h2>
+                <br />
+                <h2>
+                    <span class="text-heading">
+                        IMDB Rating:
+                    </span>
+                    @Model.imdbRating
+                </h2>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        Plot:
+                    </h1>
+                </span>
+                <h2>@Model.Plot</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        Awards:
+                    </h1>
+                </span>
+                <h2>@Model.Awards</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        DVD Release Date:
+                    </h1>
+                </span>
+                <h2>@Model.DVD</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        IMDB Votes:
+                    </h1>
+                </span>
+                <h2>@Model.imdbVotes</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        Production:
+                    </h1>
+                </span>
+                <h2>@Model.Production</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        Rated:
+                    </h1>
+                </span>
+                <h2>@Model.Rated</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        Writer:
+                    </h1>
+                </span>
+                <h2>@Model.Writer</h2>
+            </div>
+            <div style="text-align:left">
+                <span class="text-heading">
+                    <h1>
+                        Ratings:
+                    </h1>
+                </span>
+                @if(Model.Ratings != null)
+                {
+                    foreach(var item in Model.Ratings)
+                    {
+                        <h3>@item.Source: @item.Value</h3>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+    
+</div>

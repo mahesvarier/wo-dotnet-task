@@ -1,13 +1,49 @@
-﻿@model Movies.Web.Models.Movies.SearchResults
+﻿@model Movies.Web.Models.Movies.SearchResult
+
 @{
     ViewData["Title"] = "Movies List";
 }
-    <section class="movies" id="movies">
-        <h2>Featured Movies</h2>
-        <div class="row">
-            @foreach (var movie in Model.Results)
-            {
-                <partial name="MovieResult" model="movie" />
-            }
-            </div>
-    </section>
+
+<style>
+    .input-fields {
+        padding: 3%;
+        width: 40%;
+        display: block;
+        margin: auto;
+        font-size: 90%;
+        border-radius: 10px;
+        box-shadow: none;
+        vertical-align: middle;
+        border: 5px solid purple;
+    }
+
+    .submit {
+        padding: 1%;
+        width: 15%;
+        border-radius: 10px;
+        border:none;
+    }
+</style>
+<section class="movies" id="movies">
+    @*@if(ViewBag.APIKey != null)
+    {
+    <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        API Key does not exist. 
+    </div>
+    }*@
+    <form method="post" class="center">
+        <input class="input-fields mt-5" type="text" asp-for="Title" placeholder="Search for a movie name. Ex: Avengers" />
+        <br />
+        <select class="input-fields mt-5" asp-for="Type">
+            <option value="">Select one</option>
+            <option value="movie">Movie</option>
+            <option value="series">Series</option>
+            <option value="episode">Episode</option>
+        </select>
+
+        @*<input class="input-fields mt-5" type="text" asp-for="Type" placeholder="Enter type. For Ex: Series" />*@
+        <br />
+        <button class="btn btn-primary input-fields submit" type="submit"> Submit </button>
+    </form>
+</section>

@@ -1,1 +1,109 @@
-﻿@model Movies.Web.Models.Movies.Details
+﻿@model Movies.Web.Models.Movies.SearchResults
+
+<style>
+    div.item {
+        /* To correctly align image, regardless of content height: */
+        vertical-align: top;
+        display: inline-block;
+        /* To horizontally center images and caption */
+        text-align: center;
+        /* The width of the container also implies margin around the images. */
+        width: 120px;
+    }
+
+    img {
+        width: 100px;
+        height: 100px;
+        background-color: grey;
+    }
+
+    .caption {
+        /* Make the caption a block so it occupies its own line. */
+        display: block;
+    }
+</style>
+@{
+    if (Model.Results.Count() > 0)
+    {
+        var last = Model.Results.Last();
+        var i = 0;
+
+        <script type="application/ld+json">
+            {
+            "@@context": "http://schema.org",
+            "@@type":"ItemList",
+            "itemListElement": [
+            @foreach (var movie in Model.Results)
+            {
+                <text>
+                    {
+                    "@@type": "ListItem",
+                    "position": "@i",
+                    "name": "@movie.Title",
+                    "dateCreated": "@movie.MovieDetails.DVD",
+                    "director": "@movie.MovieDetails.Director",
+                    "actors": "@movie.MovieDetails.Actors",
+                    "image": "@movie.MovieDetails.Poster",
+                    "countryOfOrigin": "@movie.MovieDetails.Country",
+                    "duration": "@movie.MovieDetails.Runtime",
+                    "productionCompany": "@movie.MovieDetails.Production",
+                    "url": "@movie.MovieDetails.Poster"
+                    }
+                </text>
+                if (movie == last)
+                {
+                    <text></text>
+                }
+                else
+                {
+                    <text>,</text>
+                }
+                i++;
+            }
+            ]
+            }
+
+        </script>
+
+    }
+}
+
+
+
+<div class="jumbotron text-center">
+
+    @if (Model.Results.Count() == 0)
+    {
+        <h1>
+            No Matching search results. <a href="~/">Click Here</a> to search again.
+        </h1>
+    }
+    else
+    {
+        <h1>
+            Movies Matching search results.
+        </h1>
+    }
+
+
+
+    <br />
+
+    @foreach (var item in Model.Results)
+    {
+        <div class="item">
+            <a href="~/Movies/MovieDetails?movieId=@item.ImdbId">
+                @if (item.ImageUrl == "N/A")
+                {
+                    <img src="~\Views\Content\ImagePlaceholder.png" alt="No image available" />
+                }
+                else
+                {
+                    <img src="@item.ImageUrl" />
+                }
+                <span class="caption">@item.Title</span>
+            </a>
+        </div>
+    }
+    <br />
+</div>
